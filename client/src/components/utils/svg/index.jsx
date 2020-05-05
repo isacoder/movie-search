@@ -1,2 +1,2 @@
-export {ReactComponent as Logo} from './Logo.svg';
-export {ReactComponent as SearchIcon} from './Icons-search';
+export {ReactComponent as MainLogo} from '../svg/Logo.svg';
+export {ReactComponent as SearchIcon} from '../svg/Icons-search.svg';
