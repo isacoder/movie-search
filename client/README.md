@@ -1,4 +1,4 @@
-# Frontend challenge solution
+# Frontend Challenge Solution
 
 This is the solution implemented of the Front end challenge using the Movie DB API
 All minumun requirements were implemented.
@@ -12,7 +12,7 @@ All minumun requirements were implemented.
   After cloning the repository you will need to add your API key from MOVIE DB  to an .env file at src code.
 [Here is an example](https://github.com/isacoder/movie-search/blob/master/client/.env.example)
 
-### pre-requisites
+### Pre-requisites
 
 You will need to have [node.js](https://nodejs.org/en/download/) installed on your computer.
 
