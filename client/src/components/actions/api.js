@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {fotmatedDateValues} from '../utils/dateUtils';
 
-const API_KEY = '770020ce05b0d7eaaba9819678e29772';
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const client = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
