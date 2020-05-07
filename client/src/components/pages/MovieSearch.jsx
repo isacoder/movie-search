@@ -79,8 +79,6 @@ const MovieSearch = ({ props }) => {
       return;
     }
 
-    console.log(loadValue, 'Loading movies');
-
     try {
       const allMovies = await getMovies(loadValue);
       setMovies(allMovies);

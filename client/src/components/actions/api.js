@@ -9,7 +9,6 @@ const client = axios.create({
 
 
 export const getMovies = async (searchQuery) => {
-  console.log(searchQuery, 'calling API with');
   const params = {
     api_key: API_KEY,
     language: 'en-US',
@@ -46,9 +45,7 @@ export const getMovies = async (searchQuery) => {
     if (media_type === 'movie') return getMovieTrailer(id);
     return [];
   }));
-  console.log(allVideos, "Videos");
-
-  console.log(allVideos, "Videos");
+ 
   allVideos.forEach(({id, results}) => {
     if(!results) return;
 
@@ -64,7 +61,6 @@ return Object.keys(movieResults).map(key => movieResults[key]);
 };
 
 export const getTvTrailer = async (id) => {
-  console.log(id, "Getting first trailer");
   const params = {
     api_key: API_KEY,
     language: 'en-US',
@@ -74,7 +70,6 @@ export const getTvTrailer = async (id) => {
 }
 
 export const getMovieTrailer = async (id) => {
-  console.log(id, "Getting Movie trailer");
   const params = {
     api_key: API_KEY,
     language: 'en-US',

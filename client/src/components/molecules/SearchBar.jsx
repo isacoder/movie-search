@@ -122,7 +122,7 @@ const SearchBar = ({ className, handleSearch, type, name, value = '', placeholde
   const handleClear = useCallback(() => {
     setInputValue('');
     handleSearch('');
-  }, [inputValue, handleSearch]);
+  }, [ handleSearch]);
 
   return (
     <Container className={className}>
