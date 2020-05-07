@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useState}  from 'react';
 import styled from 'styled-components'
 import Colors from '../utils/Colors';
 import { textSize, fontSize } from '../utils/Fonts';
 import UserScore from '../molecules/UserScore';
 import Button from '../atoms/Button';
+import VideoModal from '../molecules/VideoModal';
 
 const Container = styled.div`
   display: grid;
@@ -96,7 +97,7 @@ const PlayVideo = styled(Button)`
 
 export const exampleMovie = {
   id: "123",
-  title: 'My Awesome example Movie',
+  title: 'My Awesome Example Movie',
   year: '2020',
   poster_url: 'https://placekitten.com/200/286',
   date: '10/10/2000',
@@ -104,7 +105,7 @@ export const exampleMovie = {
   gender: 'female',
   overview: 'This movie starts with a girl losing her job but is not a tragic story is a light comedy full of videogames, coding projects and delicious food.',
   score: '84',
-  trailer_url: 'https://www.youtube.com/watch?v=Jc8uLzQVnyE'
+  trailer_url: 'https://youtube.com/embed/?QH2-TGUlwu4'
 }
 
 
@@ -124,21 +125,22 @@ export const defaultMovie = {
 
 const MovieCard = ({ data, props }) => {
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const info = data || defaultMovie;
   let subtitleInfo, cardLabel;
 
 
   switch (info.type) {
     case "movie":
-      subtitleInfo = "Release date: " + info.date;
+      subtitleInfo = `Release date: ${info.date}`;
       cardLabel = "Movie";
       break;
     case "tv":
-      subtitleInfo = "First air date: " + info.date;
+      subtitleInfo = `First air date: ${info.date}`;
       cardLabel = "Tv Show";
       break;
     case "person":
-      subtitleInfo = "Gender: " + info.gender;
+      subtitleInfo = `Gender: ${info.gender}`;
       cardLabel = "People";
       break;
     default:
@@ -146,9 +148,13 @@ const MovieCard = ({ data, props }) => {
       cardLabel = "";
   }
 
+    const handleVideoPlayer = (openState) =>{
+      setIsModalOpen(openState);
+    }
 
   return (
     <Container>
+      {isModalOpen && <VideoModal title={info.title} url={info.trailer_url} handleModal={handleVideoPlayer}/>}
       <Poster>{info.poster_url ? <img src={info.poster_url} alt='item-poster' /> : <PlaceholderImg>Poster Not Available</PlaceholderImg>}</Poster>
       <TopInfo>
         <TitleContainer><Title>{info.title}</Title><Year>{info.year ? '(' + info.year + ')' : ''}</Year></TitleContainer>
@@ -158,7 +164,7 @@ const MovieCard = ({ data, props }) => {
       <MidInfo>{info.overview}</MidInfo>
       {info.type !== "person" && <BottomInfo>
         <UserScore value={info.score}>{info.score}</UserScore>
-        <PlayVideo url={info.trailer_url} disabled={!info.trailer_url} btnType='secondary'>&#9658; Play video</PlayVideo>
+        <PlayVideo  disabled={!info.trailer_url} btnType='secondary' onClick={() => handleVideoPlayer(true)}>&#9658; Play video</PlayVideo>
       </BottomInfo>}
     </Container>
   );

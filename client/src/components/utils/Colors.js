@@ -13,6 +13,7 @@ const treeGreen = '#65a80e';
 const green = '#73b817';
 const red = '#f03f3e';
 const yellow = '#ffd43b';
+const overlayBg = 'rgba(0,0,0,0.5)';
 
 
 
@@ -57,4 +58,5 @@ export default {
   barProgressGreen: green,
   barProgressYellow: yellow,
   barProgressRed: red,
+  overlayBg,
 }

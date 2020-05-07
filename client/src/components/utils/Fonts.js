@@ -2,8 +2,8 @@ export const fontSize = {
   tiny : '.6em',
   small: '.8em',
   base: '16px',
-  normal: '1em',
-  great: '1.2em',
+  normal: '1.2em',
+  great: '1.4em',
   big: '2em',
   huge: '3em'
 };

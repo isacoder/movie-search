@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
 import Colors from '../utils/Colors';
+import {textSize} from '../utils/Fonts';
 
 export const ButtonCss = css`
   border-radius: 5px;
@@ -11,7 +12,7 @@ export const ButtonCss = css`
   outline: none;
   background: ${Colors.btnBg};
   color: ${Colors.btnTxt};
-  font-size: 1rem;
+  font-size: ${textSize.pSize};
   line-height: 1;
   cursor: pointer;
   text-align: center;

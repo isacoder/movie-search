@@ -5,17 +5,17 @@ import Colors from '../utils/Colors';
 import Button from '../atoms/Button';
 import SearchBar from '../molecules/SearchBar';
 import MovieCard from '../organisms/MovieCard';
-import { getMovies, getTvTrailer, getMovieTrailer } from '../actions/api';
+import { getMovies} from '../actions/api';
 import { textSize } from '../utils/Fonts';
 
 const Container = styled.div`
-  max-width: 1500px;
+  max-width: 1200px;
   margin: auto;
 `;
 
 const Header = styled.header`
   background-color:  ${Colors.blue};
-  padding: 36px 32px 32px 52px;
+  padding: 25px 40px;
   text-align: left;
 `;
 
@@ -28,7 +28,7 @@ const ItemsSearch = styled(SearchBar)`
 `;
 
 const Logo = styled(MainLogo)`
-  height: 70px;
+  height: 50px;
   width: auto;
 `;
 
@@ -65,16 +65,6 @@ const NoResults = styled.h2`
   font-weight: 400;
 `;
 
-const transformDate = (dateText) => {
-  if (!dateText) return "";
-  const dateFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' })
-  const date = new Date(dateText);
-  const dateArray = dateFormat.formatToParts(date);
-  const formatedDate = `${dateArray[4].value}/${dateArray[0].value}/${dateArray[2].value}`;
-  const dateValues = { year: dateArray[4].value, fullDate: formatedDate };
-  return dateValues;
-}
-
 const MovieSearch = ({ props }) => {
   const [selectedType, setSelectedType] = useState('all');
   const [movies, setMovies] = useState([]);
@@ -93,39 +83,7 @@ const MovieSearch = ({ props }) => {
 
     try {
       const allMovies = await getMovies(loadValue);
-      console.log(allMovies, 'result movies list');
-
-      const formatedMovies = allMovies.map((movie, index) => {
-        const rawDate = movie.release_date ? movie.release_date : movie.first_air_date;
-        const date = transformDate(rawDate);
-        const genderInt = parseInt(movie.gender);
-        const genderTxt = (genderInt === 1) ? 'Female' : (genderInt === 2 ? 'Male' : 'Not Specified');
-        const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : (movie.profile_path ? `https://image.tmdb.org/t/p/w500/${movie.profile_path}` : "");
-
-        // let video_url;
-
-        // if(movie.media_type === 'tv'){
-        //   video_url = await getTvTrailer(movie.id);
-        // }else if(movie.media_type === 'movie'){
-        //   video_url = await getMovieTrailer(movie.id);
-        // }
-        //   console.log(video_url, 'video url');
-
-        return ({
-          id: movie.id,
-          title: movie.name ? movie.name : movie.title,
-          year: date.year ? date.year : "",
-          poster_url: posterPath,
-          date: date.fullDate ? date.fullDate : "",
-          type: movie.media_type,
-          gender: genderTxt,
-          overview: movie.overview ? movie.overview : "",
-          score: movie.vote_average ? parseFloat(movie.vote_average) * 10 : "",
-          trailer_url: "",
-        })
-      });
-
-      setMovies(formatedMovies);
+      setMovies(allMovies);
     } catch (error) {
       console.log(error, "Couldn't load movies");
     }
