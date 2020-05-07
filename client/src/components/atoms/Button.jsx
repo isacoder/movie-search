@@ -6,7 +6,7 @@ import {textSize} from '../utils/Fonts';
 export const ButtonCss = css`
   border-radius: 5px;
   border: none;
-  padding: 20px 25px;
+  padding: 10px 15px;
   margin: 0;
   text-decoration: none;
   outline: none;
@@ -19,7 +19,7 @@ export const ButtonCss = css`
   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
-  min-width: 110px;
+  min-width: 90px;
   border: 1px solid ${Colors.btnBorder};
   &:hover{
     background-color: ${Colors.btnHover};

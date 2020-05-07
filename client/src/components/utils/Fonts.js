@@ -1,11 +1,11 @@
 export const fontSize = {
-  tiny : '.6em',
-  small: '.8em',
+  tiny : '.6rem',
+  small: '.8rem',
   base: '16px',
-  normal: '1.2em',
-  great: '1.4em',
-  big: '2em',
-  huge: '3em'
+  normal: '1.2rem',
+  great: '1.4rem',
+  big: '2rem',
+  huge: '3rem'
 };
 
 export const textSize = {

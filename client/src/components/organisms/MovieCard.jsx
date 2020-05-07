@@ -7,19 +7,13 @@ import Button from '../atoms/Button';
 import VideoModal from '../molecules/VideoModal';
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 300px  1fr;
-  grid-template-rows: 120px 170px 70px;
-  grid-template-areas:
-  "poster top-info"
-  "poster mid-info"
-  "poster bottom-info";
-  justify-items: start;
+  display: flex;
   text-align: left;
+  font-size: ${fontSize.normal};
+
 `;
 
 const Poster = styled.div`
-  grid-area: poster;
   max-height: 360px;
   margin-right: 30px;
   img{
@@ -33,6 +27,7 @@ const Poster = styled.div`
 const PlaceholderImg = styled.div`
   height: 360px;
   width: 240px;
+  margin-right: 30px;
   background-color: ${Colors.lightGray2};
   color: ${Colors.darkGrayBlue};
   font-size: ${textSize.h2Size};
@@ -43,19 +38,35 @@ const PlaceholderImg = styled.div`
   box-shadow: 0px 10px 80px -23px rgba(0,0,0,0.75);
 `;
 
-const TopInfo = styled.div`
-  grid-area: top-info;
+const InforContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
 `;
-const MidInfo = styled.div`
-  grid-area: mid-info;
+
+const TopInfo = styled.div``;
+
+const Description = styled.div`
   color: ${Colors.txt};
+  line-height: 1.6;
+  max-height: 276px;
+  overflow: hidden;
+  margin: 20px 0;
 `;
+
 const BottomInfo = styled.div`
   grid-area: bottom-info;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 160px;
+  };
 `;
 
 const TitleContainer = styled.div`
@@ -77,13 +88,12 @@ const Title = styled.h2`
 
 const Subtitle = styled.div`
   color: ${Colors.darkGrayBlue};
-  font-size: ${textSize.psize};
   display: inline-block;
 `;
 
 const CardLabel = styled.label`
   border: 1px solid ${Colors.labelBorder};
-  padding: 10px; 
+  padding: 6px 10px; 
   border-radius: 4px;
   margin-right: 18px;
   display: inline-block;
@@ -156,16 +166,19 @@ const MovieCard = ({ data, props }) => {
     <Container>
       {isModalOpen && <VideoModal title={info.title} url={info.trailer_url} handleModal={handleVideoPlayer}/>}
       <Poster>{info.poster_url ? <img src={info.poster_url} alt='item-poster' /> : <PlaceholderImg>Poster Not Available</PlaceholderImg>}</Poster>
-      <TopInfo>
-        <TitleContainer><Title>{info.title}</Title><Year>{info.year ? '(' + info.year + ')' : ''}</Year></TitleContainer>
-        {cardLabel && <CardLabel>{cardLabel}</CardLabel>}
-        {subtitleInfo && <Subtitle>{subtitleInfo}</Subtitle>}
-      </TopInfo>
-      <MidInfo>{info.overview}</MidInfo>
-      {info.type !== "person" && <BottomInfo>
-        <UserScore value={info.score}>{info.score}</UserScore>
-        <PlayVideo  disabled={!info.trailer_url} btnType='secondary' onClick={() => handleVideoPlayer(true)}>&#9658; Play video</PlayVideo>
-      </BottomInfo>}
+      <InforContainer>
+        <TopInfo>
+          <TitleContainer><Title>{info.title}</Title><Year>{info.year ? '(' + info.year + ')' : ''}</Year></TitleContainer>
+          {cardLabel && <CardLabel>{cardLabel}</CardLabel>}
+          {subtitleInfo && <Subtitle>{subtitleInfo}</Subtitle>}
+          <Description>{info.overview}</Description>
+        </TopInfo>
+
+        {info.type !== "person" && <BottomInfo>
+          <UserScore value={info.score}>{info.score}</UserScore>
+          <PlayVideo  disabled={!info.trailer_url} btnType='secondary' onClick={() => handleVideoPlayer(true)}>&#9658; Play video</PlayVideo>
+        </BottomInfo>}
+      </InforContainer>
     </Container>
   );
 }

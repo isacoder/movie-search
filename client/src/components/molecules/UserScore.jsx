@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import { textSize } from '../utils/Fonts';
+import { textSize,fontSize } from '../utils/Fonts';
 import Colors from '../utils/Colors';
 
 const Container = styled.div``;
@@ -11,7 +11,8 @@ const Label = styled.label`
 
 const Score = styled.span`
   color: ${Colors.darkBlue};
-  font-weight: 800;
+  font-weight: 600;
+  font-size: ${fontSize.great};
 `;
 
 const Bar = styled.div`

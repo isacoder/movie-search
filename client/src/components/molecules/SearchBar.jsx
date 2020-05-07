@@ -5,8 +5,9 @@ import { fontSize } from '../utils/Fonts';
 import { SearchIcon } from '../utils/svg/index';
 
 const Container = styled.div`
-  height: 70px;
+  height: 56px;
   display: flex;
+  align-content: center;
   StyledIcon{
     position: absolute;
     top: 0;
@@ -26,8 +27,9 @@ const IconBox = styled.div`
   justify-content: center;
   align-items: center;
   svg{
-    height: 25px;
-    width: 25px;
+    padding-top: 4px;
+    height: 20px;
+    width: 20px;
   }
 `;
 
@@ -57,7 +59,7 @@ const InputBox = styled.div`
 const SearchInput = styled.input`
   height: 100%;
   width: 100%;
-  padding: 20px 30px 20px 55px;
+  padding: 20px 30px 20px 48px;
   display: inline-block;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -89,7 +91,7 @@ const SearchBtn = styled.button`
   border-bottom-right-radius: 5px;
   padding: 10px 20px;
   margin: 0;
-  width: 190px;
+  width: 160px;
   text-decoration: none;
   outline: none;
   box-shadow: inset 0px -20px 60px -60px rgba(0,0,0,0.75);
