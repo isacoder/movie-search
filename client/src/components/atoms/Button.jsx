@@ -33,7 +33,7 @@ export const ButtonCss = css`
     }
   ` : null}
 
-${props => props.btnType === 'secondary'? css`
+${props => props.btnType === 'secondary' ? css`
     background-color: ${Colors.btn2Bg};
     color: ${Colors.btn2Txt};
     border-radius: 50px;
@@ -58,9 +58,9 @@ const CustomButton = styled.button`
   ${ButtonCss};
 `;
 
-const Button = ({className, children, disabled, btnType, selected, onClick, props}) => {
+const Button = ({ className, children, disabled, btnType, selected, onClick, props }) => {
   return (
-  <CustomButton className={className} disabled={disabled} btnType={btnType} selected={selected} onClick={onClick} props={props}>{children}</CustomButton>
+    <CustomButton className={className} disabled={disabled} btnType={btnType} selected={selected} onClick={onClick} props={props}>{children}</CustomButton>
   )
 }
 

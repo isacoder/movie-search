@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components'
 import Colors from '../utils/Colors';
-import {fontSize} from '../utils/Fonts';
-import {SearchIcon} from '../utils/svg/index';
+import { fontSize } from '../utils/Fonts';
+import { SearchIcon } from '../utils/svg/index';
 
 const Container = styled.div`
   height: 70px;
@@ -107,40 +107,43 @@ const SearchBtn = styled.button`
   }
 `;
 
-const SearchBar = ({className, handleSearch, type, name, value = '', placeholder, onChange, ...props}) => {
+const SearchBar = ({ className, handleSearch, type, name, value = '', placeholder, onChange, ...props }) => {
 
   const [searchPlaceholder, setSearchPlaceholder] = useState(placeholder);
-  const [inputValue, setInputValue] = useState(value); 
+  const [inputValue, setInputValue] = useState(value);
 
   const handleSubmit = useCallback((keyEvent) => {
     var code = keyEvent.keyCode || keyEvent.which;
-    if(code === 13 && handleSearch) {
+    if (code === 13 && handleSearch) {
       handleSearch(inputValue);
     }
-    console.log("this is the key event: ", code);
-  },[inputValue]);
+  }, [inputValue, handleSearch]);
 
+  const handleClear = useCallback(() => {
+    setInputValue('');
+    handleSearch('');
+  }, [inputValue, handleSearch]);
 
-  return(
+  return (
     <Container className={className}>
       <InputBox>
-        <IconBox><SearchIcon/></IconBox>
+        <IconBox><SearchIcon /></IconBox>
         <SearchInput
-            id={name}
-            name={name}
-            value={inputValue}
-            type={type} 
-            placeholder={searchPlaceholder} 
-            onKeyDown={(event) => {handleSubmit(event)}}
-            onChange={(event) => {setInputValue(event.target.value);}}
-            onFocus={() => {setSearchPlaceholder('')} }
-            onBlur = { () => {setSearchPlaceholder(placeholder)}}
-            props={props}
+          id={name}
+          name={name}
+          value={inputValue}
+          type={type}
+          placeholder={searchPlaceholder}
+          onKeyDown={(event) => { handleSubmit(event) }}
+          onChange={(event) => { setInputValue(event.target.value); }}
+          onFocus={() => { setSearchPlaceholder('') }}
+          onBlur={() => { setSearchPlaceholder(placeholder) }}
+          props={props}
         ></SearchInput>
-        {inputValue !== '' ? <ClearBtn onClick={() => {setInputValue('')}}>Clear</ClearBtn> : null}
+        {inputValue !== '' ? <ClearBtn onClick={() => handleClear()}>Clear</ClearBtn> : null}
       </InputBox>
 
-      <SearchBtn onClick={() => {handleSearch && handleSearch(inputValue)} }>Search</SearchBtn>
+      <SearchBtn onClick={() => { handleSearch && handleSearch(inputValue) }}>Search</SearchBtn>
     </Container>
   );
 }

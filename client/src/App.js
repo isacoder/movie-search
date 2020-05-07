@@ -5,7 +5,7 @@ import MovieSearch from './components/pages/MovieSearch';
 function App() {
   return (
     <div className="App">
-      <MovieSearch/>
+      <MovieSearch />
     </div>
   );
 }

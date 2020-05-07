@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { textSize } from '../utils/Fonts';
-import Colors  from '../utils/Colors';
+import Colors from '../utils/Colors';
 
 const Container = styled.div``;
 const Label = styled.label`
@@ -30,25 +30,25 @@ const Progress = styled.div`
 `;
 
 
-const UserScore = ({value, props}) => {
+const UserScore = ({ value, props }) => {
 
   const percent = (isNaN(value) || value === '') ? 'Not Rated' : value + '%';
   let progressBg;
-  
-  if(value < 21){
+
+  if (value < 21) {
     progressBg = Colors.barProgressRed;
-  }else if(value < 51){
+  } else if (value < 51) {
     progressBg = Colors.barProgressYellow;
-  }else {
+  } else {
     progressBg = Colors.barProgressGreen;
   }
 
-  return(
+  return (
     <Container>
       <Label>User Raiting: </Label>
       <Score>{percent}</Score>
       <Bar>
-        {(percent !== 'Not Rated') && <Progress percentage = {percent} bgColor={progressBg}/>}
+        {(percent !== 'Not Rated') && <Progress percentage={percent} bgColor={progressBg} />}
       </Bar>
     </Container>
   );

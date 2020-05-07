@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import Colors from '../utils/Colors';
-import {textSize, fontSize} from '../utils/Fonts';
+import { textSize, fontSize } from '../utils/Fonts';
 import UserScore from '../molecules/UserScore';
 import Button from '../atoms/Button';
 
@@ -28,6 +28,20 @@ const Poster = styled.div`
     box-shadow: 0px 10px 80px -23px rgba(0,0,0,0.75);
   }
 `;
+
+const PlaceholderImg = styled.div`
+  height: 360px;
+  width: 240px;
+  background-color: ${Colors.lightGray2};
+  color: ${Colors.darkGrayBlue};
+  font-size: ${textSize.h2Size};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0px 10px 80px -23px rgba(0,0,0,0.75);
+`;
+
 const TopInfo = styled.div`
   grid-area: top-info;
 `;
@@ -74,57 +88,78 @@ const CardLabel = styled.label`
   display: inline-block;
   text-transform: capitalize;
   color: ${Colors.labelTxt};
-`; 
+`;
 
 const PlayVideo = styled(Button)`
   max-height: 60px;
 `;
 
-export const defaultMovie = {
-  title:'My Awesome example Movie',
-  year:'2020',
-  poster_url:'https://placekitten.com/200/286',
-  date:'10/10/2000',
-  type:'movie',
+export const exampleMovie = {
+  id: "123",
+  title: 'My Awesome example Movie',
+  year: '2020',
+  poster_url: 'https://placekitten.com/200/286',
+  date: '10/10/2000',
+  type: 'movie',
   gender: 'female',
-  overview:'This movie starts with a girl losing her job but is not a tragic story is a light comedy full of videogames, coding projects and delicious food.',
-  score:'84',
-  trailer_url:'https://www.youtube.com/watch?v=Jc8uLzQVnyE'
+  overview: 'This movie starts with a girl losing her job but is not a tragic story is a light comedy full of videogames, coding projects and delicious food.',
+  score: '84',
+  trailer_url: 'https://www.youtube.com/watch?v=Jc8uLzQVnyE'
 }
 
 
+export const defaultMovie = {
+  id: "",
+  title: "",
+  year: "",
+  poster_url: "",
+  date: "",
+  type: "",
+  gender: "",
+  overview: "",
+  score: "",
+  trailer_url: "",
+}
 
-const MovieCard = ({data, props}) => {
+
+const MovieCard = ({ data, props }) => {
 
   const info = data || defaultMovie;
-  let subtitleInfo;
+  let subtitleInfo, cardLabel;
 
-  switch(info.type){
+
+  switch (info.type) {
     case "movie":
-        subtitleInfo = "Release date: " + info.date;
-        break;
+      subtitleInfo = "Release date: " + info.date;
+      cardLabel = "Movie";
+      break;
     case "tv":
-        subtitleInfo = "First air date: " + info.date;
-        break;
-    case "people":
-        subtitleInfo = "Gender: " + info.gender;
-        break;
+      subtitleInfo = "First air date: " + info.date;
+      cardLabel = "Tv Show";
+      break;
+    case "person":
+      subtitleInfo = "Gender: " + info.gender;
+      cardLabel = "People";
+      break;
+    default:
+      subtitleInfo = "";
+      cardLabel = "";
   }
 
 
-  return(
+  return (
     <Container>
-      <Poster><img src={info.poster_url} alt='item-poster'/></Poster>
+      <Poster>{info.poster_url ? <img src={info.poster_url} alt='item-poster' /> : <PlaceholderImg>Poster Not Available</PlaceholderImg>}</Poster>
       <TopInfo>
         <TitleContainer><Title>{info.title}</Title><Year>{info.year ? '(' + info.year + ')' : ''}</Year></TitleContainer>
-        <CardLabel>{info.type}</CardLabel>
-        <Subtitle>{subtitleInfo}</Subtitle>
+        {cardLabel && <CardLabel>{cardLabel}</CardLabel>}
+        {subtitleInfo && <Subtitle>{subtitleInfo}</Subtitle>}
       </TopInfo>
       <MidInfo>{info.overview}</MidInfo>
-      <BottomInfo>
+      {info.type !== "person" && <BottomInfo>
         <UserScore value={info.score}>{info.score}</UserScore>
         <PlayVideo url={info.trailer_url} disabled={!info.trailer_url} btnType='secondary'>&#9658; Play video</PlayVideo>
-      </BottomInfo>
+      </BottomInfo>}
     </Container>
   );
 }
